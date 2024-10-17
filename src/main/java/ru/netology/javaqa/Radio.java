@@ -1,61 +1,73 @@
 package ru.netology.javaqa;
 
 public class Radio {
-    public int DownChanel;
-    public int setChanel;
-    public int UpVolume;
-    public int DownVolume;
-    public int UpChanel;
-    private final int minStation = 0;
-    private final int maxStation = 9;
-    private final int maxVolume = 100;
 
-    public void setChanel(int numberChanel) {
-        int station;
-        if (numberChanel <= maxStation) {
-            station = numberChanel;
+
+    private int currentVolume;
+    private int maxCurrentVolume = 100;
+    private int minCurrentVolume = 0;
+    private int currentStation;
+    private int maxCurrentStation = 9;
+    private int minCurrentStation = 0;
+
+    public Radio() {
+
+    }
+
+    public Radio(int numberOfStations) {
+        this.maxCurrentStation = minCurrentStation + numberOfStations - 1;
+    }
+
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public int getCurrentStation() {
+        return currentStation;
+    }
+
+    public void setCurrentStation(int newCurrentStation) {
+        if (newCurrentStation > maxCurrentStation) {
+            return;
         }
+        if (newCurrentStation < minCurrentStation) {
+            return;
+        }
+        currentStation = newCurrentStation;
+    }
 
-        if (numberChanel >= minStation) {
-            station = numberChanel;
+    public void setCurrentVolume(int newCurrentVolume) {
+        currentVolume = newCurrentVolume;
+    }
+
+
+    public void volumeUp() {
+        if (currentVolume < maxCurrentVolume) {
+            currentVolume++;
         }
     }
 
-    public void UpChanel(int Station) {
-        if (Station == maxStation) {
-            Station = minStation;
+    public void volumeDown() {
+        if (currentVolume > minCurrentVolume) {
+            currentVolume--;
+        }
+    }
+
+
+    public void next() {
+        if (currentStation < maxCurrentStation) {
+            currentStation++;
         } else {
-            Station = Station + 1;
-            return;
+            currentStation = minCurrentStation;
         }
     }
 
-    public void DownChanel(int Station) {
-        if (Station == minStation) {
-            Station = maxStation;
+    public void prev() {
+        if (currentStation > minCurrentStation) {
+            currentStation--;
         } else {
-            Station = Station - 1;
-            return;
+            currentStation = maxCurrentStation;
         }
     }
 
-    public void UpVolume(int volume) {
-        if (volume != maxVolume) {
-            volume = volume + 1;
-            return;
-        }
-    }
-
-    public void DownVolume(int volume) {
-        int minVolume = 0;
-        if (volume != minVolume) {
-            volume = volume - 1;
-            return;
-        }
-    }
-
-    public int getMinVolume() {
-        int minVolume = 0;
-        return minVolume;
-    }
 }
